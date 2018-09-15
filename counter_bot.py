@@ -1,3 +1,6 @@
+#Добавить команду /wordcount котрая считает сова в присланной фразе.
+# Например на запрос /wordcount "Привет как дела" бот должен посчитать количество слов в кавычках и ответить: 3 слова.
+
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import logging
 
