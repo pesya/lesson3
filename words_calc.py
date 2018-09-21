@@ -15,7 +15,7 @@ logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s',
 
 
 def greet_user(bot, update):
-    text = 'Hey, hooman! Type \"/calc smth = \" - and I\'ll count all the shit'
+    text = 'Hey, hooman! Type \"/calc сколько будет n плюс/минус/умножить/разделить m\" - and I\'ll count all the shit'
     print(text)
     update.message.reply_text(text)
 
@@ -23,17 +23,27 @@ def greet_user(bot, update):
 def calc(bot, update):
     user_text = update.message.text
     user_text = user_text.split()
-    if len(user_text) > 2:
-        print('Input error')
-        return update.message.reply_text('Input error')
-    user_text = user_text[1]
-    user_text = user_text[:-1]
-    split = re.findall("(\d+)([\+\*\/\-])(\d+)*", user_text)
-    x = split[0][0]
-    y = split[0][2]
-    sign = split[0][1]
-    x = int(x)
-    y = int(y)
+    words_to_digits = {'один': 1,
+                       'два': 2,
+                       'три': 3,
+                       'четыре': 4,
+                       'пять': 5,
+                       'шесть': 6,
+                       'семь': 7,
+                       'восемь': 8,
+                       'девять': 9,
+                       'плюс': '+',
+                       'минус': '-',
+                       'умножить': '*',
+                       'разделить': '/'}
+    equasion = []
+    for word in user_text:
+        a = words_to_digits.get(word, 0)
+        if a != 0:
+            equasion.append(a)
+    x = int(equasion[0])
+    sign = equasion[1]
+    y = int(equasion[2])
     if sign == '+':
         result = x + y
         print(result)
@@ -54,6 +64,7 @@ def calc(bot, update):
         except ZeroDivisionError:
             print('Zero division')
             return update.message.reply_text('You can not divide by zero!')
+
 
 
 

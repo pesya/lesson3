@@ -14,15 +14,9 @@ logging.basicConfig(format='%(name)s - %(levelname)s - %(message)s',
 
 
 def greet_user(bot, update):
-    text = 'Привет, человек!'
+    text = 'Hey, hooman! Type /wordcount \"smth\" - and I\'ll count how many words there are'
     print(text)
     update.message.reply_text(text)
-
-
-def talk_to_me(bot, update):
-    user_text = update.message.text
-    print(user_text)
-    update.message.reply_text(user_text)
 
 
 def wordcount(bot, update):
@@ -38,7 +32,7 @@ def wordcount(bot, update):
     else:
         l = len(user_text)
         print(l)
-        return update.message.reply_text('This text has {} words'.format(l))c
+        return update.message.reply_text('This text has {} words'.format(l))
 
 
 def main():
