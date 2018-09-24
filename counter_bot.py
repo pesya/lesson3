@@ -3,6 +3,7 @@
 
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import logging
+from api_key import get_key
 
 
 PROXY = {'proxy_url': 'socks5://t1.learn.python.ru:1080',
@@ -25,18 +26,19 @@ def wordcount(bot, update):
     user_text = user_text[1:]
     if len(user_text) == 0:
         print('Incorrect input')
-        return update.message.reply_text('Incorrect input')
+        update.message.reply_text('Incorrect input')
+        return
     if len(user_text[0]) < 3:
         print('Incorrect input')
-        return update.message.reply_text('Incorrect input')
-    else:
-        l = len(user_text)
-        print(l)
-        return update.message.reply_text('This text has {} words'.format(l))
+        update.message.reply_text('Incorrect input')
+        return
+    row_length = len(user_text)
+    print(row_length)
+    return update.message.reply_text('This text has {} words'.format(row_length))
 
 
 def main():
-    mybot = Updater("659806032:AAEzxPcmOtNRtawBl_maB_zF4Nzxpz_oGFQ", request_kwargs=PROXY)
+    mybot = Updater(get_key(), request_kwargs=PROXY)
     dp = mybot.dispatcher
     dp.add_handler(CommandHandler("start", greet_user))
     dp.add_handler(CommandHandler("wordcount", wordcount))

@@ -4,6 +4,7 @@
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import logging
 import re
+from api_key import get_key
 
 
 PROXY = {'proxy_url': 'socks5://t1.learn.python.ru:1080',
@@ -59,7 +60,7 @@ def calc(bot, update):
 
 
 def main():
-    mybot = Updater("659806032:AAEzxPcmOtNRtawBl_maB_zF4Nzxpz_oGFQ", request_kwargs=PROXY)
+    mybot = Updater(get_key(), request_kwargs=PROXY)
     dp = mybot.dispatcher
     dp.add_handler(CommandHandler("start", greet_user))
     dp.add_handler(CommandHandler("calc", calc))

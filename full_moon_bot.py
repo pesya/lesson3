@@ -8,6 +8,7 @@ from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
 import logging
 import ephem
 import datetime
+from api_key import get_key
 
 
 PROXY = {'proxy_url': 'socks5://t1.learn.python.ru:1080',
@@ -35,13 +36,13 @@ def full_moon(bot, update):
             print(word, 'not a date')
     if date != 0:
         answer = ephem.next_full_moon(date)
-        update.message.reply_text(answer)
+        update.message.reply_text('The nearest full moon is at {}'.format(answer))
     else:
         update.message.reply_text('Please give me a valid date')
 
 
 def main():
-    mybot = Updater("659806032:AAEzxPcmOtNRtawBl_maB_zF4Nzxpz_oGFQ", request_kwargs=PROXY)
+    mybot = Updater(get_key(), request_kwargs=PROXY)
     dp = mybot.dispatcher
     dp.add_handler(CommandHandler("start", greet_user))
     dp.add_handler(CommandHandler("date", full_moon))
